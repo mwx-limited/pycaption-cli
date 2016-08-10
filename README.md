@@ -13,7 +13,7 @@ Usage
 
 From your command line:
 
-    pycaption <path to caption file> [--sami --dfxp --srt --transcript]
+    pycaption <path to caption file> [--sami --dfxp --srt --transcript --vtt --scc_lang --scc_offset]
     
 e.g.
 
