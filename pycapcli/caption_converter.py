@@ -39,6 +39,10 @@ def main():
             dest='offset',
             help="choose offset for SCC file; measured in seconds",
             default=0)
+    parser.add_option("--use_styling",
+            dest='use_styling',
+            help="use styling in WebVtt or not (True|False)",
+            default=True)
     (options, args) = parser.parse_args()
 
     try:
@@ -46,10 +50,10 @@ def main():
     except:
         raise Exception(
         ('Expected usage: python caption_converter.py <path to caption file> ',
-        '[--sami --dfxp --srt --vtt --transcript]'))
+        '[--sami --dfxp --srt --vtt --use_styling --transcript --scc_lang --scc_offset]'))
 
     try:
-        captions = codecs.open(filename, encoding='utf-8-seg', mode='r').read()
+        captions = codecs.open(filename, encoding='utf-8', mode='r').read()
     except:
         captions = open(filename, 'r').read()
         captions = unicode(captions, errors='replace')
@@ -68,9 +72,9 @@ def read_captions(captions, options):
     if scc_reader.detect(captions):
         if options.lang:
             return scc_reader.read(captions, lang=options.lang,
-                                   offset=int(options.offset))
+                                   offset=float(options.offset))
         else:
-            return scc_reader.read(captions, offset=int(options.offset))
+            return scc_reader.read(captions, offset=float(options.offset))
     elif srt_reader.detect(captions):
         return srt_reader.read(captions)
     elif sami_reader.detect(captions):
@@ -84,12 +88,13 @@ def read_captions(captions, options):
 
 
 def write_captions(content, options):
+
     if options.sami:
         print pycaption.SAMIWriter().write(content).encode("utf-8")
     if options.dfxp:
         print pycaption.DFXPWriter().write(content).encode("utf-8")
     if options.webvtt:
-        print pycaption.WebVTTWriter().write(content).encode("utf-8")
+        print pycaption.WebVTTWriter().write(caption_set=content, use_styling=options.use_styling).encode("utf-8")
     if options.srt:
         print pycaption.SRTWriter().write(content).encode("utf-8")
     if options.transcript:

@@ -13,7 +13,7 @@ Usage
 
 From your command line:
 
-    pycaption <path to caption file> [--sami --dfxp --srt --transcript]
+    pycaption <path to caption file> [--sami --dfxp --srt --vtt --use_styling --transcript --scc_lang --scc_offset]
     
 e.g.
 
@@ -22,6 +22,12 @@ e.g.
 Output is written to the screen. To write to a file, use something like this:
 
     pycaption ../jnorton-caption.scc --dfxp > jnorton.xml
+
+Arguments
+=========
+
+ - --use_styling - use webvtt caption positioning styling or not (True by default)
+ - --scc_offset - offset for SCC file in seconds. Positive value will be subtracted from the time stamp, negative - added
 
 Supported Formats
 =================
