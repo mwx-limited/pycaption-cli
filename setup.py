@@ -6,17 +6,20 @@ README_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                            'README.md')
 
 dependencies = [
-    'pycaption'
+    'pycaption-mwx'
 ]
 
 setup(
-    name='pycaption-cli',
+    name='pycaption-cli-mwx',
     version='0.1',
     description='Command line caption conversion',
-    author='Joe Norton',
-    author_email='joey@nortoncrew.com',
-    url='https://github.com/jnorton001/pycaption-cli',
+    author='MWX Limited',
+    author_email='mwxltd@gmail.com',
+    url='https://github.com/mwx-limited/pycaption-cli-mwx',
     install_requires=dependencies,
+    dependency_links = [
+        'git+https://github.com/mwx-limited/pycaption-mwx#egg=pycaption-mwx-1.0.0'
+    ],
     packages=find_packages(),
     include_package_data=True,
     entry_points=dict(
