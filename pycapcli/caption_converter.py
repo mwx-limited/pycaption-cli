@@ -64,9 +64,9 @@ def main():
         try:
             write_captions(content, options)
         except Exception,e:
-            raise Exception('Error writing file: ',filename,'. ',str(e))
+            raise Exception('Error writing file',filename,str(e))
     else:
-        raise Exception('Error reading file: ',filename)
+        raise Exception('Error reading file',filename)
 
 def read_captions(captions, options):
     scc_reader = pycaption.SCCReader()
