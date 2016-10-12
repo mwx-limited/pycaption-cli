@@ -63,8 +63,8 @@ def main():
     if captions != '':
         try:
             write_captions(content, options)
-        except:
-            raise Exception('Error writing file: ',filename)
+        except Exception,e:
+            raise Exception('Error writing file: ',filename,'. ',str(e))
     else:
         raise Exception('Error reading file: ',filename)
 
