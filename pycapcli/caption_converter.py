@@ -52,15 +52,21 @@ def main():
         ('Expected usage: python caption_converter.py <path to caption file> ',
         '[--sami --dfxp --srt --vtt --use_styling --transcript --scc_lang --scc_offset]'))
 
-    try:
-        captions = codecs.open(filename, encoding='utf-8', mode='r').read()
-    except:
-        captions = open(filename, 'r').read()
-        captions = unicode(captions, errors='replace')
-
-    content = read_captions(captions, options)
-    write_captions(content, options)
-
+    captions = ''
+    for enc in "utf-8", "utf-8-sig", "utf-16":
+        try:
+            captions = codecs.open(filename, encoding=str(enc), mode='r').read()
+            content = read_captions(captions, options)
+            break
+        except:
+            continue
+    if captions != '':
+        try:
+            write_captions(content, options)
+        except Exception,e:
+            raise Exception('Error writing file',filename,str(e))
+    else:
+        raise Exception('Error reading file',filename)
 
 def read_captions(captions, options):
     scc_reader = pycaption.SCCReader()
