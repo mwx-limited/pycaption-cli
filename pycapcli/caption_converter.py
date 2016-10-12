@@ -3,6 +3,10 @@ import codecs
 
 import pycaption
 
+# dirty hack to set utf-8 as default encoding and fix endless unicode issues
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 def main():
     parser = optparse.OptionParser("usage: %prog [options]")
@@ -96,15 +100,15 @@ def read_captions(captions, options):
 def write_captions(content, options):
 
     if options.sami:
-        print pycaption.SAMIWriter().write(content).encode("utf-8")
+        print pycaption.SAMIWriter().write(content)
     if options.dfxp:
-        print pycaption.DFXPWriter().write(content).encode("utf-8")
+        print pycaption.DFXPWriter().write(content)
     if options.webvtt:
-        print pycaption.WebVTTWriter().write(caption_set=content, use_styling=options.use_styling).encode("utf-8")
+        print pycaption.WebVTTWriter().write(caption_set=content, use_styling=options.use_styling)
     if options.srt:
-        print pycaption.SRTWriter().write(content).encode("utf-8")
+        print pycaption.SRTWriter().write(content)
     if options.transcript:
-        print pycaption.TranscriptWriter().write(content).encode("utf-8")
+        print pycaption.TranscriptWriter().write(content)
 
 
 if __name__ == '__main__':
