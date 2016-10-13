@@ -35,17 +35,17 @@ def main():
             dest='transcript',
             help="write transcript for captions",
             default=False,)
-    parser.add_option("--scc_lang",
+    parser.add_option("--lang",
             dest='lang',
             help="choose override language for input",
-            default='',)
-    parser.add_option("--scc_offset",
+            default='en-US',)
+    parser.add_option("--time_offset",
             dest='offset',
-            help="choose offset for SCC file; measured in seconds",
+            help="choose an offset for input time code; measured in seconds",
             default=0)
     parser.add_option("--use_styling",
             dest='use_styling',
-            help="use styling in WebVtt or not (True|False)",
+            help="use styling in WebVtt output file or not (True|False)",
             default=True)
     (options, args) = parser.parse_args()
 
@@ -54,7 +54,7 @@ def main():
     except:
         raise Exception(
         ('Expected usage: python caption_converter.py <path to caption file> ',
-        '[--sami --dfxp --srt --vtt --use_styling --transcript --scc_lang --scc_offset]'))
+        '[--sami --dfxp --srt --vtt --use_styling --transcript --lang --time_offset]'))
 
     captions = ''
     for enc in "utf-8", "utf-8-sig", "utf-16":
@@ -80,13 +80,9 @@ def read_captions(captions, options):
     webvtt_reader = pycaption.WebVTTReader()
 
     if scc_reader.detect(captions):
-        if options.lang:
-            return scc_reader.read(captions, lang=options.lang,
-                                   offset=float(options.offset))
-        else:
-            return scc_reader.read(captions, offset=float(options.offset))
+         return scc_reader.read(captions, lang=options.lang, offset=float(options.offset))
     elif srt_reader.detect(captions):
-        return srt_reader.read(captions)
+        return srt_reader.read(captions, lang=options.lang, offset=float(options.offset))
     elif sami_reader.detect(captions):
         return sami_reader.read(captions)
     elif dfxp_reader.detect(captions):
