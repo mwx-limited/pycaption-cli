@@ -15,7 +15,7 @@ Usage
 
 From your command line:
 
-    pycaption <path to caption file> [--sami --dfxp --srt --vtt --use_styling --transcript --scc_lang --scc_offset]
+    pycaption <path to caption file> [--sami --dfxp --srt --vtt --use_styling --transcript --lang --time_offset]
     
 e.g.
 
@@ -29,7 +29,7 @@ Arguments
 =========
 
  - --use_styling - use webvtt caption positioning styling or not (True/yes by default)
- - --scc_offset - offset for SCC file in seconds. Positive value will be subtracted from the time stamp, negative - added
+ - --time_offset - offset time in seconds. Positive value will be added to the time stamp, negative - subtracted. Supported for SCC and SRT input files only.
 
 Supported Formats
 =================
